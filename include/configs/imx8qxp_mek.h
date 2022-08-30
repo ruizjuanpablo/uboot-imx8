@@ -105,9 +105,27 @@
                 "run xenboot_common;" \
             "\0" \
 
+#ifdef CONFIG_DISTRO_DEFAULTS
+#define BOOT_TARGET_DEVICES(func) \
+	func(MMC, mmc, 1) \
+	func(MMC, mmc, 0)
+
+#include <config_distro_bootcmd.h>
+#else
+#define BOOTENV
+#endif
+
+#define MEM_LAYOUT_ENV_SETTINGS \
+	"fdt_addr_r=0x83000000\0" \
+	"kernel_addr_r=0x80200000\0" \
+	"ramdisk_addr_r=0x83100000\0" \
+	"scriptaddr=0x83200000\0" \
+
 /* Initial environment variables */
 #define CONFIG_EXTRA_ENV_SETTINGS		\
 	CONFIG_MFG_ENV_SETTINGS \
+	MEM_LAYOUT_ENV_SETTINGS \
+	BOOTENV \
 	M4_BOOT_ENV \
 	XEN_BOOT_ENV \
 	JAILHOUSE_ENV\
@@ -122,6 +140,7 @@
 	"cntr_file=os_cntr_signed.bin\0" \
 	"boot_fdt=try\0" \
 	"fdt_file=undefined\0" \
+	"fdtfile=imx8qxp-mek.dtb\0" \
 	"mmcdev="__stringify(CONFIG_SYS_MMC_ENV_DEV)"\0" \
 	"mmcpart=1\0" \
 	"mmcroot=" CONFIG_MMCROOT " rootwait rw\0" \
