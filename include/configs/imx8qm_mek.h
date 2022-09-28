@@ -197,7 +197,8 @@
 	"cntr_addr=0x98000000\0"			\
 	"cntr_file=os_cntr_signed.bin\0" \
 	"boot_fdt=try\0" \
-	"fdtfile=imx8qm-mek-hdmi.dtb\0" \
+	"fdtfile=imx8qm-mek-kvm-host.dtb\0" \
+	"fdt_file=imx8qm-mek-kvm-host.dtb\0" \
 	"mmcdev="__stringify(CONFIG_SYS_MMC_ENV_DEV)"\0" \
 	"mmcpart=1\0" \
 	"mmcroot=" CONFIG_MMCROOT " rootwait rw\0" \
